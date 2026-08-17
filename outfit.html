@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Outfit Builder - StyleMate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .weather-card {
+            background: #111;
+            color: white;
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+        }
+        .weather-main {
+            font-size: 34px;
+            font-weight: 700;
+        }
+        .weather-condition {
+            color: #bdbdbd;
+            font-size: 15px;
+        }
+        .weather-stat {
+            border-left: 1px solid #333;
+            padding-left: 20px;
+        }
+        .weather-stat small {
+            color: #999;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .weather-stat strong {
+            font-size: 16px;
+        }
+        .outfit-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+        .outfit-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        .role-badge {
+            display: inline-block;
+            background: #f1f3f5;
+            color: #111;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .builder-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+        .result-box {
+            background: #111;
+            color: white;
+            border-radius: 20px;
+            padding: 25px;
+        }
+        .result-box p {
+            color: #d0d0d0;
+        }
+        @media (max-width: 768px) {
+            .weather-stat {
+                border-left: none;
+                border-top: 1px solid #333;
+                padding-left: 0;
+                padding-top: 12px;
+                margin-top: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="dashboard.html">StyleMate</a>
+        <div>
+            <a href="wardrobe.html" class="btn btn-outline-dark me-2">My Wardrobe</a>
+            <a href="dashboard.html" class="btn btn-outline-dark me-2">Dashboard</a>
+            <a href="login.html" class="btn btn-dark">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <!-- PAGE HEADER -->
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">✨ AI Outfit Builder</h1>
+        <p class="text-muted">Let AI create an outfit using your own wardrobe and today's weather.</p>
+    </div>
+
+    <!-- REAL WEATHER -->
+    <div class="weather-card">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <div class="small text-uppercase text-secondary mb-2">Today's Weather</div>
+                <div class="weather-main">28°C</div>
+                <div class="weather-condition">Partly cloudy</div>
+                <small class="text-secondary">Ludhiana, Punjab</small>
+            </div>
+            <div class="col-lg-8">
+                <div class="row g-3 mt-3 mt-lg-0">
+                    <div class="col-6 col-md-3">
+                        <div class="weather-stat">
+                            <small>Feels Like</small>
+                            <strong>30°C</strong>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="weather-stat">
+                            <small>Humidity</small>
+                            <strong>65%</strong>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="weather-stat">
+                            <small>Wind</small>
+                            <strong>12 km/h</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUILDER -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="builder-box">
+                <h4 class="fw-bold mb-4">Create Your Outfit</h4>
+                <form action="#" method="POST">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">What are you dressing for?</label>
+                        <select name="occasion" class="form-select form-select-lg" required>
+                            <option value="">Select occasion</option>
+                            <option value="College">College</option>
+                            <option value="Work">Work</option>
+                            <option value="Casual">Casual Outing</option>
+                            <option value="Party">Party</option>
+                            <option value="Date">Date</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Traditional Event">Traditional Event</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">What style do you want?</label>
+                        <select name="style" class="form-select form-select-lg" required>
+                            <option value="">Select style</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Formal">Formal</option>
+                            <option value="Party">Party</option>
+                            <option value="Traditional">Traditional</option>
+                            <option value="Sporty">Sporty</option>
+                            <option value="Streetwear">Streetwear</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark btn-lg w-100">✨ Generate Outfit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT PREVIEW -->
+<div class="mt-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold" id="outfit-title"></h2>
+        <p class="text-muted" id="outfit-description"></p>
+    </div>
+
+    <div class="row g-4 justify-content-center" id="outfit-cards-container">
+        <!-- Item Card Template -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="outfit-card">
+                <img src="" alt="" class="outfit-image">
+                <div class="p-4">
+                    <span class="role-badge"></span>
+                    <h4 class="fw-bold item-title"></h4>
+                    <p class="mb-1"><strong>Color:</strong> <span class="item-color"></span></p>
+                    <p class="mb-1"><strong>Style:</strong> <span class="item-style"></span></p>
+                    <p class="mb-0"><strong>Suitable for:</strong> <span class="item-occasion"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="result-box mt-4">
+        <h5 class="fw-bold">💡 Why this outfit?</h5>
+        <p class="mb-0" id="outfit-reasoning"></p>
+    </div>
+</div>
+</body>
+</html>

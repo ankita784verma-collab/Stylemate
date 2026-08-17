@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Analytics - StyleMate</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #050505;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .analytics-container {
+            width: 94%;
+            max-width: 1500px;
+            margin: 35px auto 60px;
+        }
+        .analytics-header {
+            background: linear-gradient(135deg, #111111, #090909);
+            border: 1px solid #252525;
+            border-radius: 22px;
+            padding: 28px 38px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .analytics-header small {
+            color: #22d3ee;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .analytics-header h1 {
+            font-size: 48px;
+            margin: 10px 0 8px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #22d3ee, #818cf8, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .analytics-header p {
+            color: #b6b6b6;
+            font-size: 18px;
+            margin: 0;
+        }
+        .header-actions {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            gap: 10px;
+        }
+        .header-actions a {
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            color: white;
+            border: 1px solid #333;
+        }
+        .header-actions a:first-child { color: #22d3ee; }
+        .header-actions a:last-child { background: #111; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .stat-card {
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            padding: 24px;
+            min-height: 145px;
+        }
+        .stat-card .stat-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+        .stat-card .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .stat-card p { color: #aaa; margin: 0; }
+        .stat-blue .stat-title, .stat-blue .stat-number { color: #22d3ee; }
+        .stat-green .stat-title, .stat-green .stat-number { color: #22c55e; }
+        .stat-purple .stat-title, .stat-purple .stat-number { color: #a855f7; }
+        .stat-orange .stat-title, .stat-orange .stat-number { color: #f59e0b; }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .chart-card {
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            padding: 20px;
+            min-height: 300px;
+        }
+        .chart-card h3 { font-size: 19px; margin: 0 0 8px; }
+        .chart-card p { color: #aaa; margin: 0 0 15px; }
+        .chart-wrapper { height: 220px; position: relative; }
+        .blue-title { color: #22d3ee; }
+        .green-title { color: #22c55e; }
+        .purple-title { color: #a855f7; }
+        .orange-title { color: #f59e0b; }
+        .insights-card {
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            padding: 20px;
+            min-height: 300px;
+        }
+        .insights-card h3 { color: #facc15; margin-bottom: 8px; }
+        .insights-card > p { color: #aaa; }
+        .insight-item {
+            display: flex;
+            gap: 12px;
+            margin: 18px 0;
+            color: #eee;
+            line-height: 1.4;
+        }
+        .insight-icon { color: #facc15; font-size: 19px; flex-shrink: 0; }
+        @media (max-width: 1100px) {
+            .stats-grid, .chart-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 700px) {
+            .analytics-header { padding: 25px; }
+            .analytics-header h1 { font-size: 34px; }
+            .header-actions { position: static; margin-top: 20px; }
+            .stats-grid, .chart-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="analytics-container">
+    <section class="analytics-header">
+        <div class="header-actions">
+            <a href="dashboard.html">← Dashboard</a>
+            <a href="login.html">Logout</a>
+        </div>
+        <small>STYLE ANALYTICS</small>
+        <h1>Understand Your Wardrobe</h1>
+        <p>Analyze your clothing collection, discover patterns and understand your personal style.</p>
+    </section>
+
+    <section class="stats-grid">
+        <div class="stat-card stat-blue">
+            <div class="stat-title">TOTAL ITEMS</div>
+            <div class="stat-number" id="stat-total">0</div>
+            <p>Clothing pieces</p>
+        </div>
+        <div class="stat-card stat-green">
+            <div class="stat-title">CATEGORIES</div>
+            <div class="stat-number" id="stat-categories">0</div>
+            <p>Different types</p>
+        </div>
+        <div class="stat-card stat-purple">
+            <div class="stat-title">TOP COLOR</div>
+            <div class="stat-number" id="stat-color">N/A</div>
+            <p>Most used color</p>
+        </div>
+        <div class="stat-card stat-orange">
+            <div class="stat-title">MAIN STYLE</div>
+            <div class="stat-number" id="stat-style">N/A</div>
+            <p>Dominant style</p>
+        </div>
+    </section>
+
+    <section class="chart-grid">
+        <div class="chart-card">
+            <h3 class="blue-title">Wardrobe by Category</h3>
+            <p>See how your clothing is distributed.</p>
+            <div class="chart-wrapper">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="purple-title">Color Analysis</h3>
+            <p>Your most common wardrobe colors.</p>
+            <div class="chart-wrapper">
+                <canvas id="colorChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="orange-title">Style Distribution</h3>
+            <p>Understand your overall fashion style.</p>
+            <div class="chart-wrapper">
+                <canvas id="styleChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="green-title">Seasonal Wardrobe</h3>
+            <p>See which seasons your wardrobe supports.</p>
+            <div class="chart-wrapper">
+                <canvas id="seasonChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="blue-title">Occasion Analysis</h3>
+            <p>Where your wardrobe can be used.</p>
+            <div class="chart-wrapper">
+                <canvas id="occasionChart"></canvas>
+            </div>
+        </div>
+
+        <div class="insights-card">
+            <h3>Style Insights</h3>
+            <p>Automatically generated from your wardrobe.</p>
+            <div id="insightsContainer"></div>
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Fetch Real Data from LocalStorage
+    const wardrobeData = JSON.parse(localStorage.getItem("wardrobe")) || [];
+
+    // Helper functions to aggregate metrics
+    const getFrequencies = (key) => {
+        return wardrobeData.reduce((acc, item) => {
+            if (item[key]) {
+                const val = item[key].trim();
+                acc[val] = (acc[val] || 0) + 1;
+            }
+            return acc;
+        }, {});
+    };
+
+    const getTopKey = (freqObj) => {
+        const entries = Object.entries(freqObj);
+        if (entries.length === 0) return "N/A";
+        return entries.reduce((max, curr) => curr[1] > max[1] ? curr : max)[0];
+    };
+
+    const categoriesFreq = getFrequencies("category");
+    const colorsFreq = getFrequencies("color");
+    const styleFreq = getFrequencies("style");
+    const seasonFreq = getFrequencies("season");
+    const occasionFreq = getFrequencies("occasion");
+
+    // 2. Update KPI Stat Cards
+    document.getElementById("stat-total").textContent = wardrobeData.length;
+    document.getElementById("stat-categories").textContent = Object.keys(categoriesFreq).length;
+    document.getElementById("stat-color").textContent = getTopKey(colorsFreq);
+    document.getElementById("stat-style").textContent = getTopKey(styleFreq);
+
+    // 3. Dynamic Insights Generation
+    const insightsContainer = document.getElementById("insightsContainer");
+    insightsContainer.innerHTML = "";
+
+    if (wardrobeData.length === 0) {
+        insightsContainer.innerHTML = `
+            <div class="insight-item">
+                <span class="insight-icon">ⓘ</span>
+                <span>No clothes found in your wardrobe yet. Add items to generate insights!</span>
+            </div>`;
+    } else {
+        const topColor = getTopKey(colorsFreq);
+        const topStyle = getTopKey(styleFreq);
+
+        const insights = [
+            topColor !== "N/A" ? `Your wardrobe currently has the most items in <strong>${topColor}</strong>.` : null,
+            topStyle !== "N/A" ? `Your wardrobe is mainly focused on <strong>${topStyle}</strong> style.` : null,
+            `You have <strong>${wardrobeData.length}</strong> items across <strong>${Object.keys(categoriesFreq).length}</strong> category type(s).`
+        ].filter(Boolean);
+
+        insights.forEach(text => {
+            const div = document.createElement("div");
+            div.className = "insight-item";
+            div.innerHTML = `<span class="insight-icon">✓</span><span>${text}</span>`;
+            insightsContainer.appendChild(div);
+        });
+    }
+
+    // 4. Render Dynamic Charts
+    const chartColors = ["#22d3ee", "#22c55e", "#a855f7", "#f59e0b", "#3b82f6", "#14b8a6"];
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: "#eeeeee" } } },
+        scales: {
+            x: { ticks: { color: "#bbbbbb" }, grid: { color: "#222222" } },
+            y: { ticks: { color: "#bbbbbb" }, grid: { color: "#222222" }, beginAtZero: true }
+        }
+    };
+
+    // Category Chart
+    new Chart(document.getElementById("categoryChart"), {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(categoriesFreq),
+            datasets: [{
+                data: Object.values(categoriesFreq),
+                backgroundColor: chartColors,
+                borderColor: "#0d0d0d",
+                borderWidth: 3
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { color: "#eeeeee" } } } }
+    });
+
+    // Color Chart
+    new Chart(document.getElementById("colorChart"), {
+        type: "bar",
+        data: {
+            labels: Object.keys(colorsFreq),
+            datasets: [{
+                data: Object.values(colorsFreq),
+                backgroundColor: "#a855f7",
+                borderRadius: 4
+            }]
+        },
+        options: commonOptions
+    });
+
+    // Style Chart
+    new Chart(document.getElementById("styleChart"), {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(styleFreq),
+            datasets: [{
+                data: Object.values(styleFreq),
+                backgroundColor: chartColors,
+                borderColor: "#0d0d0d",
+                borderWidth: 3
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { color: "#eeeeee" } } } }
+    });
+
+    // Season Chart
+    new Chart(document.getElementById("seasonChart"), {
+        type: "bar",
+        data: {
+            labels: Object.keys(seasonFreq),
+            datasets: [{
+                data: Object.values(seasonFreq),
+                backgroundColor: "#22c55e",
+                borderRadius: 4
+            }]
+        },
+        options: commonOptions
+    });
+
+    // Occasion Chart
+    new Chart(document.getElementById("occasionChart"), {
+        type: "bar",
+        data: {
+            labels: Object.keys(occasionFreq),
+            datasets: [{
+                data: Object.values(occasionFreq),
+                backgroundColor: "#22d3ee",
+                borderRadius: 4
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, ticks: { color: "#bbbbbb" }, grid: { color: "#222222" } },
+                y: { ticks: { color: "#bbbbbb" }, grid: { color: "#222222" } }
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
