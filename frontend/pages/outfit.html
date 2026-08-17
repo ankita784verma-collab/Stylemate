@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Outfit Builder - StyleMate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="dashboard.html">StyleMate</a>
+            <div>
+                <a href="wardrobe.html" class="btn btn-outline-dark me-2">My Wardrobe</a>
+                <a href="dashboard.html" class="btn btn-outline-dark me-2">Dashboard</a>
+                <button class="btn btn-dark" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card rounded-4 shadow-sm p-5">
+                    <h2 class="fw-bold mb-4">AI Outfit Builder</h2>
+                    
+                    <form id="outfitForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Occasion</label>
+                            <select name="occasion" class="form-select" required>
+                                <option value="">Select occasion</option>
+                                <option value="college">College</option>
+                                <option value="work">Work</option>
+                                <option value="casual">Casual Outing</option>
+                                <option value="party">Party</option>
+                                <option value="date">Date</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Season</label>
+                            <select name="season" class="form-select" required>
+                                <option value="">Select season</option>
+                                <option value="summer">Summer</option>
+                                <option value="winter">Winter</option>
+                                <option value="spring">Spring</option>
+                                <option value="autumn">Autumn</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Style Preference</label>
+                            <select name="style" class="form-select" required>
+                                <option value="">Select style</option>
+                                <option value="casual">Casual</option>
+                                <option value="formal">Formal</option>
+                                <option value="sporty">Sporty</option>
+                                <option value="streetwear">Streetwear</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100 py-2">Generate Outfit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div id="outfitResult" class="d-none">
+                    <h3 class="fw-bold mb-4">Your AI Outfit</h3>
+                    <div id="outfitItems" class="row g-3">
+                        <!-- Outfit items will be displayed here -->
+                    </div>
+                </div>
+
+                <div id="noOutfit" class="text-center text-muted">
+                    <p>Generate an outfit to see recommendations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/outfit.js"></script>
+</body>
+</html>

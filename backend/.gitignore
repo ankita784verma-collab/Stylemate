@@ -1,0 +1,32 @@
+# Environment & Configuration
+.env
+.env.local
+.env.*.local
+
+# Uploaded files
+/uploads/*
+!uploads/.gitkeep
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

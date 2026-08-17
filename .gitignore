@@ -1,15 +1,48 @@
-# Gemini API key
-gemini_config.php
-
-# Environment / secret files
+# Environment & Configuration
 .env
+.env.local
+.env.*.local
 
-# VS Code settings
+# API Configuration (use .env instead)
+config/gemini_config.php
+
+# Uploaded files
+/backend/uploads/*
+!backend/uploads/.gitkeep
+
+# IDE & Editor
 .vscode/
+.idea/
+*.swp
+*.swo
 
-# System files
 .DS_Store
-Thumbs.db
 
 # Logs
 *.log
+logs/
+
+# System files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node (if using npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Composer
+vendor/
+composer.lock
+
+# Database backups
+*.sql.backup
+*.sql.bak
+
+# OS specific
+*.exe
+*.dll
+*.so
+*.dylib

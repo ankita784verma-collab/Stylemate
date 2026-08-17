@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StyleMate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="style-header">
+        <div class="style-header-inner">
+            <a href="dashboard.html" class="style-logo">StyleMate</a>
+            <div class="style-nav-actions">
+                <span class="dashboard-user" id="userGreeting">Hi, User</span>
+                <button class="style-nav-btn style-nav-filled" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Slider -->
+    <section class="dashboard-slider">
+        <div id="dashboardCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85" class="dashboard-slider-image">
+                    <div class="dashboard-slider-overlay"></div>
+                    <div class="dashboard-slider-content">
+                        <span>YOUR DIGITAL WARDROBE</span>
+                        <h1>Everything you own,<br><strong>in one place.</strong></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-content">
+        <div class="dashboard-heading">
+            <span class="dashboard-label">STYLEMATE</span>
+            <h2>Your wardrobe dashboard.</h2>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">👗</div>
+                <h3>My Wardrobe</h3>
+                <p>Add, organize and manage your clothes.</p>
+                <a href="wardrobe.html" class="dashboard-card-btn">Open Wardrobe →</a>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">🤖</div>
+                <h3>AI Style Assistant</h3>
+                <p>Get personalized outfit recommendations.</p>
+                <a href="outfit.html" class="dashboard-card-btn">Ask AI →</a>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">📊</div>
+                <h3>Style Analytics</h3>
+                <p>Analyze your personal style patterns.</p>
+                <a href="style_profiles.html" class="dashboard-card-btn">View Analytics →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>
