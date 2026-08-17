@@ -1,0 +1,15 @@
+# Gemini API key
+gemini_config.php
+
+# Environment / secret files
+.env
+
+# VS Code settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
